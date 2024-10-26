@@ -1,13 +1,21 @@
 <DOCTYPE html></DOCTYPE>
 <html>
-    <head></head>
-    <title>test</title>
-    <link rel="stylesheet" href="style.css">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <title>Pairs Game</title>
+    <link rel= "stylesheet" href="style.css">
 </head> <body>
     <main>
         <h1>
-            Hello Weaver!
+            Pairs!
         </h1>
+            <input type= "text" id= "Player 1 name" placeholder= "Player 1 Name">
+            <input type= "text" id= "Player 2 name" placeholder= "Player 2 Name">
+            <button id= "start game" onclick= "startGame()"> Start Game </button>
+            <span id= "scoreboard">Player 1 : 0 | Player 2 : 0 </span>
+        <section id= "game board" class= "game board"></section> 
+        <span id= "result"></span>
     </main>
     <script src= "script.is"></script>
 </body>
