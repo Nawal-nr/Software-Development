@@ -67,7 +67,7 @@ button:hover {
     transition: background-color 0.3s; 
 }
 
-.card:hover {
+.card: hover {
     background-color: #B0E0E6; 
 }
 
