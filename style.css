@@ -1,44 +1,65 @@
 body {
-    min-height: 100vh; 
-    min-width: 100vw; 
-    background-color: #b0fdfd;
-    color: #333333;
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    justify-content: center;
-    font: 'Patrick Hand', cursive;
-  }
-  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffebcd;
+  color: #333;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+#gameTitle {
+  font-size: 3em;
+  color: #ff6f61;
+  text-shadow: 2px 2px #ffd700;
+  margin-bottom: 20px;
+  text-align: center; 
+}
   
   h1 {
     font-size: 3em;
+    color: #ff6f61;
+    text-shadow: 2px 2px #ffd700; 
     margin-bottom: 20px;
-  }
+}
   
   
-  input {
-    padding: 10px;
-    margin: 10px;
-    font-size: 1em;
-    border: 2px solid #000; 
-    border-radius: 5px;
-  }
+input {
+  padding: 10px;
+  margin: 10px;
+  font-size: 1.2em;
+  border: 2px solid #ff6f61;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  transition: 0.3s ease;
+}
+  
+input:focus {
+  border-color: #ffb6c1;
+}
+
+ 
+button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  background-color: #ff6f61;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 2px 2px #ffb6c1;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
   
   
-  button {
-    padding: 10px 20px;
-    font-size: 1em;
-    background-color: #FFD700;
-    border: none;
-    border-radius: 5xp;
-    cursor: pointer;
-  }
-  
-  
-  button:hover {
-    background-color: #FFC107;
-  }
+button:hover {
+  background-color: #ff8c69; 
+  transform: scale(1.05); 
+}
   
   
   #scoreboard {
@@ -47,31 +68,38 @@ body {
   }
   
   #gameBoard {
-      display: grid; 
-      grid-template-columns: repeat(4, 100px); 
-      gap: 10px; 
-      margin-bottom: 20px; 
-  }
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
   
-  .card {
-      width: 100px; 
-      height: 100px; 
-      background-color: #FFF; 
-      border: 2px solid #000; 
-      border-radius: 10px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      font-size: 2em; 
-      cursor: pointer; 
-      transition: background-color 0.3s; 
-  }
+.card {
+  width: 100px;
+  height: 100px;
+  background-color: #ffe867; 
+  border: 3px solid #ff6f61; 
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
   
-  .card hover {
-      background-color: #B0E0E6; 
-  }
-  
-  #result {
-      font-size: 2em; 
-      margin-top: 20px; 
-  }
+.card:hover {
+  background-color: #ffb6c1; 
+  transform: scale(1.1); 
+}
+
+
+#result {
+  font-size: 2em;
+  margin-top: 20px;
+  color: #32cd32; 
+  text-shadow: 2px 2px #ffd700;
+}
