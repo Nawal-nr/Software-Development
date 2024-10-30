@@ -96,10 +96,19 @@ button:hover {
   transform: scale(1.1); 
 }
 
+.container {
+  text-align: center; 
+  padding: 20px;
+}
+
+.instructions {
+  font-size: 1.5em; 
+  color: #ff6f61; 
+  margin-bottom: 20px;
+}
 
 #result {
   font-size: 2em;
   margin-top: 20px;
-  color: #32cd32; 
-  text-shadow: 2px 2px #ffd700;
+  color: #217921; 
 }
