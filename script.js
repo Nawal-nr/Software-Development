@@ -4,7 +4,15 @@ let player2Score = 0;     // Player 2's score
 let currentPlayer = 1;    // Tracks which player's turn it is (1 or 2)
 let cardValues = ["🐸", "🐶", "🐻", "🦊", "🐰", "🐱"]; // Array of card symbols for matching pairs
 let selectedCards = [];   // Array to track selected cards for matching
-let gameBoard = [];       // Array to represent the game board with cards
+let gameBoard = [];// Array to represent the game board with cards
+let twoPlayerMode = false;
+
+
+
+function selectMode(mode){
+  twoPlayerMode = (mode === 2);
+  statGame();
+}
 
 // Function to start the game and reset scores and player turn
 function startGame() {
