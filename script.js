@@ -1,5 +1,5 @@
 let player1Score = 0;
-let player2score = 0;
+let player2Score = 0;
 let currentPlayer = 1;
 let cardValues = ["🐸","🐶","🐻","🦊","🐰","🐱"];
 let selectedCards = [];
