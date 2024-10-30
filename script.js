@@ -52,14 +52,31 @@ function flipCard(index) {
 
 
 function checkMatch() { 
-
-
-
-
-
-
-
+const [firstIndex, secondIndex] = selectedCards;
+  if (gameBoard[firstIndex].value ===
+     gameBoard[secondIndex].value) {
+    if (currentPlayer === 1){
+      player1Score += 1;
+    } else {
+      player2Score += 1;
+    }
+  } else { 
+    gameBoard[firstIndex].flipped = false;
+    gameBoard[secondIndex].flipped = false;
+    currentPlayer = currentPlayer === 1 ? 2 : 1;
+  }
+  selectedCards = [];
+  document.getElementById('scoreboard').innerText = "Player 1: " + player1Score + " | Player 2: " + player2Score;
+  renderBoard();
+  checkGameOver();
+}
 
 
 
 function checkGameOver() {  
+  if (gameBoard.every(card => card.flipped)){
+    const winner = player1Score ? "Player 1 wins!" : player1Score < player2Score ? "Player 2 wins!" : "It's a tie!";
+    document.getElementById('result').innerText = winner;
+  }
+}
+  
