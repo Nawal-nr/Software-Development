@@ -76,6 +76,8 @@ function checkMatch() {
   if (gameBoard[firstIndex].value === gameBoard[secondIndex].value) { // If the cards match
     if (twoPlayerMode){
       currentPlayer === 1 ? player1Score++ : player2Score++
+    } else {
+      player1Score++;
     }
   } else {
     setTimeout(() => {
