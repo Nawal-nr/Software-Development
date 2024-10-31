@@ -89,6 +89,23 @@ input {
   transition: 0.3s ease;
 }
 
+#playerNameSections {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; 
+  margin: 0 auto;
+  width: 100%; 
+  max-width: 300px; 
+}
+
+#playerNameSections input {
+  width: 100%; 
+  text-align: center; 
+  box-sizing: border-box; 
+}
+
 button {
   padding: 10px 20px;
   font-size: 1.2em;
