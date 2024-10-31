@@ -7,13 +7,25 @@
 </head>
 <body>
     <main>
-        <h1 type="'text" id="gameTitle" placeholder="Pairs"> 🎉 Pairs Game 🎉</h1>
-        <input type="text" id="Player1Name" placeholder="Player 1 Name">
-        <input type="text" id="Player2Name" placeholder="Player 2 Name">
-        <button id="startGame" onclick="startGame()">Start Game</button>
-        <span id="scoreboard"> </span>
-        <section id="gameBoard" class="game-board"></section>
-        <span id="result"></span>
+        <h1 id="gameTitle">🎉 Pairs! 🎉</h1>
+        <section>
+            <p>Choose Game Mode: </p> 
+            <button onclick="selectMode(1)">Single Player</button>
+            <button onclick="selectMode(2)">Two Players</button>
+        </section>
+
+
+<section id="playerNameSections" style="display: none;"> 
+    <input type="text" id="player1Name" placeholder="Player 1 Name">
+    <input type="text" id="player2Name" placeholder="Player 2 Name" style="display:none;">
+    <button id="startGame" onclick="startGame()">Start Game</button>
+</section>
+
+
+<p id="scoreboard" style="display:none;">Player 1 : 0 | Player 2 : 0</p>
+<section id="result"></section>
+<div id="gameBoard"></div>
+<section></section>
     </main>
     <script src="script.js"></script>
 </body>
