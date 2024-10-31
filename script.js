@@ -61,7 +61,7 @@ function renderBoard() {
 
 // Function to handle card flip logic
 function flipCard(index) {
-  if (gameBoard[index].flipped) return; // If the card is already flipped, ignore further action
+  if (gameBoard[index].flipped || selectedCards.length >= 2) return; // If the card is already flipped, ignore further action
   gameBoard[index].flipped = true; // Set card as flipped
   selectedCards.push(index); // Add the card index to selected cards
   renderBoard(); // Update the board display to show flipped card
@@ -75,18 +75,22 @@ function checkMatch() {
   const [firstIndex, secondIndex] = selectedCards; // Get indices of the two selected cards
   if (gameBoard[firstIndex].value === gameBoard[secondIndex].value) { // If the cards match
     if (twoPlayerMode){
-      currentPlayer === 1 ?player1Score++ : player2Score++
+      currentPlayer === 1 ? player1Score++ : player2Score++
     }
   } else {
-    player1Score++
-  } 
-  gameBoard[firstIndex].flipped = false;
-  gameBoard[secondIndex].flipped = false;
-  if (twoPlayerMode) currentPlayer = currentPlayer === 1 ? 2 : 1;
+    setTimeout(() => {
+      gameBoard[firstIndex].flipped = false;
+      gameBoard[secondIndex].flipped = false;
+      if (twoPlayerMode) currentPlayer = currentPlayer === 1 ? 2 : 1;
+      renderBoard();
+    }, 1000);
+  }
+
+
 
   selectedCards = []; // Reset selected cards for the next turn
   // Update the scoreboard display with current scores
-  document.getElementById('scoreboard').innerText = TwoPlayerMode ? "Player 1: " + player1Score + " | Player 2: " + player2Score :
+  document.getElementById('scoreboard').innerText = twoPlayerMode ? "Player 1: " + player1Score + " | Player 2: " + player2Score :
   "Score: " + player1Score;
   renderBoard(); // Render the board to reflect changes
   checkGameOver(); // Check if the game is over after each match check
