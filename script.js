@@ -2,25 +2,32 @@
 let player1Score = 0;     // Player 1's score
 let player2Score = 0;     // Player 2's score
 let currentPlayer = 1;    // Tracks which player's turn it is (1 or 2)
+let twoPlayerMode = false;
 let cardValues = ["🐸", "🐶", "🐻", "🦊", "🐰", "🐱"]; // Array of card symbols for matching pairs
 let selectedCards = [];   // Array to track selected cards for matching
-let gameBoard = [];// Array to represent the game board with cards
-let twoPlayerMode = false;
+let gameBoard = [];       // Array to represent the game board with cards
 
+function selectMode(mode) {
+  twoPlayerMode = (mode === 2)
 
-
-function selectMode(mode){
-  twoPlayerMode = (mode === 2);
-  statGame();
+  document.querySelector('main section').style.display = 'none';
+  document.getElementById('playerNameSections').style.display = 'block';
+  document.getElementById('player2Name').style.display = twoPlayerMode ? 'block' : 'none'; 
 }
+
 
 // Function to start the game and reset scores and player turn
 function startGame() {
   player1Score = 0; // Reset Player 1's score
   player2Score = 0; // Reset Player 2's score
   currentPlayer = 1; // Set starting player to Player 1
-  // Update the scoreboard display to show initial scores
-  document.getElementById('scoreboard').innerText = "Player 1: " + player1Score + " | Player 2: " + player2Score;
+
+document.getElementById('playerNameSections').style.display = 'none';
+document.getElementById('scoreboard').style.display = 'block';
+document.getElementById('scoreboard').innerText = twoPlayerMode ? 
+  "Player 1 : 0  |  Player 2 : 0 " :
+  "Score: 0";
+
   setupGameBoard(); // Call setup function to arrange the game board
 }
 
@@ -65,16 +72,13 @@ function flipCard(index) {
 function checkMatch() { 
   const [firstIndex, secondIndex] = selectedCards; // Get indices of the two selected cards
   if (gameBoard[firstIndex].value === gameBoard[secondIndex].value) { // If the cards match
-    if (currentPlayer === 1) {
-      player1Score += 1; // Award a point to Player 1
-    } else {
-      player2Score += 1; // Award a point to Player 2
-    }
-  } else { 
-    gameBoard[firstIndex].flipped = false; // Unflip the first card
-    gameBoard[secondIndex].flipped = false; // Unflip the second card
-    currentPlayer = currentPlayer === 1 ? 2 : 1; // Switch turn to the other player
+    currentPlayer === 1 ? player1Score++ : player2Score++;
+  } else {
+    gameBoard[firstIndex].flipped = false;
+    gameBoard[secondIndex].flipped = false;
+    currentPlayer = currentPlayer === 1 ? 2 : 1;
   }
+
   selectedCards = []; // Reset selected cards for the next turn
   // Update the scoreboard display with current scores
   document.getElementById('scoreboard').innerText = "Player 1: " + player1Score + " | Player 2: " + player2Score;
@@ -92,4 +96,3 @@ function checkGameOver() {
       alert(winner); // Show a pop-up with the winner message
     }
   }
-  
