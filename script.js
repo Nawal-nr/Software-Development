@@ -24,9 +24,11 @@ function startGame() {
 
 document.getElementById('playerNameSections').style.display = 'none';
 document.getElementById('scoreboard').style.display = 'block';
-document.getElementById('scoreboard').innerText = twoPlayerMode ? 
-  "Player 1 : 0  |  Player 2 : 0 " :
-  "Score: 0";
+if (twoPlayerMode){
+  document.getElementById('scoreboard').innerText = "Player 1: 0 | Player 2: 0"
+} else {
+  document.getElementById('scoreboard').innerText = "Score: 0"; 
+}
 
   setupGameBoard(); // Call setup function to arrange the game board
 }
@@ -72,16 +74,20 @@ function flipCard(index) {
 function checkMatch() { 
   const [firstIndex, secondIndex] = selectedCards; // Get indices of the two selected cards
   if (gameBoard[firstIndex].value === gameBoard[secondIndex].value) { // If the cards match
-    currentPlayer === 1 ? player1Score++ : player2Score++;
+    if (twoPlayerMode){
+      currentPlayer === 1 ?player1Score++ : player2Score++
+    }
   } else {
-    gameBoard[firstIndex].flipped = false;
-    gameBoard[secondIndex].flipped = false;
-    currentPlayer = currentPlayer === 1 ? 2 : 1;
-  }
+    player1Score++
+  } 
+  gameBoard[firstIndex].flipped = false;
+  gameBoard[secondIndex].flipped = false;
+  if (twoPlayerMode) currentPlayer = currentPlayer === 1 ? 2 : 1;
 
   selectedCards = []; // Reset selected cards for the next turn
   // Update the scoreboard display with current scores
-  document.getElementById('scoreboard').innerText = "Player 1: " + player1Score + " | Player 2: " + player2Score;
+  document.getElementById('scoreboard').innerText = TwoPlayerMode ? "Player 1: " + player1Score + " | Player 2: " + player2Score :
+  "Score: " + player1Score;
   renderBoard(); // Render the board to reflect changes
   checkGameOver(); // Check if the game is over after each match check
 }
