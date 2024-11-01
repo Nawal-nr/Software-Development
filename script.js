@@ -1,7 +1,9 @@
-let player1Score = 0; // Initialize score for player 1
-let player2Score = 0; // Initialize score for player 2
+let player1Score = 0; // Initialize score for Player 1
+let player2Score = 0; // Initialize score for Player 2
 let currentPlayer = 1; // Set the current player (1 for Player 1, 2 for Player 2)
 let twoPlayerMode = false; // Flag to indicate if the game is in two-player mode
+let player1Name = "Player 1"; // Default name for Player 1
+let player2Name = "Player 2"; // Default name for Player 2
 let cardValues = ["🐸", "🐶", "🐻", "🦊", "🐰", "🐱"]; // Array of animal emojis used as card values
 let selectedCards = []; // Array to keep track of the selected card indices
 let gameBoard = []; // Array to represent the game board with card objects
@@ -17,136 +19,143 @@ const animalSounds = {
     "🐱": new Audio("sounds/Cat.mp3")
 };
 
-function selectMode(mode) { // Function to select game mode
-    twoPlayerMode = (mode === 2); // Set twoPlayerMode based on the selected mode
-    document.querySelector('main section').style.display = 'none'; // Hide the game mode selection section
-    document.getElementById('playerNameSections').style.display = 'block'; // Show the player name input section
-    document.getElementById('player2Name').style.display = twoPlayerMode ? 'block' : 'none'; // Show/hide Player 2 name input
+function selectMode(mode) {
+    twoPlayerMode = (mode === 2); // Set twoPlayerMode based on whether the selected mode is 2-player
+    document.querySelector("main section").style.display = "none"; // Hide game mode selection section
+    document.getElementById("playerNameSections").style.display = "block"; // Show player name input section
+    document.getElementById("player2Name").style.display = twoPlayerMode ? "block" : "none"; // Show Player 2 name input if in two-player mode
 }
 
-function startGame() { // Function to start the game
+function startGame() {
     player1Score = 0; // Reset Player 1 score
     player2Score = 0; // Reset Player 2 score
-    currentPlayer = 1; // Reset to Player 1
+    currentPlayer = 1; // Set current player to Player 1
 
-    document.getElementById('playerNameSections').style.display = 'none'; // Hide the player name section
-    document.getElementById('scoreboard').style.display = 'block'; // Show the scoreboard
-    document.getElementById('timer').style.display = 'block'; // Show the timer
+    // Capture player names from input fields or use default names if input is empty
+    player1Name = document.getElementById("player1Name").value || "Player 1";
+    player2Name = document.getElementById("player2Name").value || "Player 2";
 
-    if (twoPlayerMode) { // Check if in two-player mode
-        document.getElementById('scoreboard').innerText = "Player 1: 0 | Player 2: 0"; // Initialize scoreboard
-    } else {
-        document.getElementById('scoreboard').innerText = "Score: 0"; // Initialize scoreboard for single-player
-    }
+    document.getElementById("playerNameSections").style.display = "none"; // Hide player name input section
+    document.getElementById("scoreboard").style.display = "block"; // Show scoreboard
+    document.getElementById("timer").style.display = "block"; // Show timer
 
-    startTimer(180); // Start the timer with a duration of 180 seconds
+    // Update scoreboard text with player names and initial scores
+    document.getElementById("scoreboard").innerText = twoPlayerMode 
+        ? player1Name + ": 0 | " + player2Name + ": 0"
+        : "Score: 0";
+
+    startTimer(180); // Start timer for 180 seconds
     setupGameBoard(); // Set up the game board with shuffled cards
 }
 
-function startTimer(duration) { // Function to start the countdown timer
-    let timeRemaining = duration; // Set time remaining to the specified duration
-    const timerElement = document.getElementById('timer'); // Get the timer element
+function startTimer(duration) {
+    let timeRemaining = duration; // Initialize remaining time to the specified duration
+    const timerElement = document.getElementById("timer"); // Get timer element
 
     clearInterval(timerInterval); // Clear any existing timer interval
 
-    timerInterval = setInterval(() => { // Start a new interval
+    // Start new interval for countdown timer
+    timerInterval = setInterval(() => {
         const minutes = Math.floor(timeRemaining / 60); // Calculate minutes
         const seconds = timeRemaining % 60; // Calculate seconds
-        timerElement.innerText = `Time Left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`; // Update the timer display
+        // Update timer display with formatted time
+        timerElement.innerText = "Time Left: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 
-        if (timeRemaining <= 0) { // Check if time has run out
+        if (timeRemaining <= 0) { // When time runs out
             clearInterval(timerInterval); // Stop the timer
-            endGame(); // Call the endGame function
+            endGame(); // End the game
         }
-        timeRemaining--; // Decrease time remaining by 1 second
-    }, 1000); // Execute every 1000 milliseconds (1 second)
+        timeRemaining--; // Decrement remaining time by 1 second
+    }, 1000); // Repeat every 1 second
 }
 
-function endGame() { // Function to end the game
-    const winner = player1Score > player2Score ? "Player 1 wins!" // Determine the winner
-                : player1Score < player2Score ? "Player 2 wins!" 
-                : "It's a tie!"; // Determine if it's a tie
-    document.getElementById('result').innerText = winner; // Display the result
+function endGame() {
+    // Determine winner based on scores or declare a tie
+    const winner = player1Score > player2Score ? player1Name + " wins!" 
+                : player1Score < player2Score ? player2Name + " wins!" 
+                : "It's a tie!";
+    
+    document.getElementById("result").innerText = winner; // Display result on the page
     alert(winner); // Show an alert with the winner message
-    document.getElementById('restartButton').style.display = 'block'; // Show the restart button
+    document.getElementById("restartButton").style.display = "block"; // Show restart button
 }
 
-function setupGameBoard() { // Function to set up the game board
-    const cardPairs = [...cardValues, ...cardValues]; // Create pairs of cards by duplicating cardValues
-    cardPairs.sort(() => Math.random() - 0.5); // Shuffle the card pairs randomly
-    gameBoard = cardPairs.map(value => ({ // Create the game board as an array of card objects
+function setupGameBoard() {
+    const cardPairs = [...cardValues, ...cardValues]; // Create pairs of cards by duplicating card values
+    cardPairs.sort(() => Math.random() - 0.5); // Randomly shuffle card pairs
+    gameBoard = cardPairs.map(value => ({
         value: value,
-        flipped: false // Initially set all cards to not flipped
+        flipped: false // Initialize all cards as unflipped
     }));
-    renderBoard(); // Render the game board
+    renderBoard(); // Render the game board on the page
 }
 
-function renderBoard() { // Function to render the game board
-    const board = document.getElementById('gameBoard'); // Get the game board element
-    board.innerHTML = ''; // Clear the board's inner HTML
-    gameBoard.forEach((card, index) => { // Loop through each card
-        const cardElement = document.createElement('span'); // Create a new span element for the card
-        cardElement.innerText = card.flipped ? card.value : '🃏'; // Set text to card value if flipped, else show a placeholder
-        cardElement.className = 'card'; // Set the class name for styling
-        cardElement.onclick = () => flipCard(index); // Add click event to flip the card
-        board.appendChild(cardElement); // Add the card element to the game board
+function renderBoard() {
+    const board = document.getElementById("gameBoard"); // Get game board element
+    board.innerHTML = ""; // Clear existing board content
+    gameBoard.forEach((card, index) => {
+        const cardElement = document.createElement("span"); // Create a span element for each card
+        cardElement.innerText = card.flipped ? card.value : "🃏"; // Show card value if flipped, otherwise show a placeholder
+        cardElement.className = "card"; // Assign a CSS class for styling
+        cardElement.onclick = () => flipCard(index); // Set click event to flip card
+        board.appendChild(cardElement); // Add card element to the game board
     });
 }
 
-function flipCard(index) { // Function to flip a card at a given index
-    if (gameBoard[index].flipped || selectedCards.length >= 2) return; // Prevent flipping if already flipped or two cards are selected
-    gameBoard[index].flipped = true; // Mark the card as flipped
-    selectedCards.push(index); // Add the index to the selected cards array
-    renderBoard(); // Render the board to show the flipped card
-    if (selectedCards.length === 2) { // Check if two cards are selected
-        setTimeout(checkMatch, 1000); // Delay before checking for a match
+function flipCard(index) {
+    if (gameBoard[index].flipped || selectedCards.length >= 2) return; // If card is already flipped or 2 cards are selected, ignore click
+    gameBoard[index].flipped = true; // Flip the selected card
+    selectedCards.push(index); // Add selected card index to the array
+    renderBoard(); // Update the board to show the flipped card
+    if (selectedCards.length === 2) {
+        setTimeout(checkMatch, 1000); // After 1 second, check for a match
     }
 }
 
-function checkMatch() { // Function to check if the selected cards match
-    const [firstIndex, secondIndex] = selectedCards; // Get the indices of the selected cards
-    if (gameBoard[firstIndex].value === gameBoard[secondIndex].value) { // Check if the values match
-        if (animalSounds[gameBoard[firstIndex].value]) { // Check if the corresponding sound exists
-            animalSounds[gameBoard[firstIndex].value].play(); // Play the sound for the matched card
+function checkMatch() {
+    const [firstIndex, secondIndex] = selectedCards; // Retrieve indices of selected cards
+    if (gameBoard[firstIndex].value === gameBoard[secondIndex].value) { // If card values match
+        if (animalSounds[gameBoard[firstIndex].value]) { // Check if there's a sound for this card
+            animalSounds[gameBoard[firstIndex].value].play(); // Play sound for the matched card
         }
-        if (twoPlayerMode) { // Update scores based on current player
+        if (twoPlayerMode) { // Update score based on current player
             currentPlayer === 1 ? player1Score++ : player2Score++;
         } else {
             player1Score++; // Single-player mode
         }
-    } else { // If the cards don’t match
-        setTimeout(() => { // Delay before flipping the cards back
-            gameBoard[firstIndex].flipped = false; // Unflip the first card
-            gameBoard[secondIndex].flipped = false; // Unflip the second card
+    } else { // If cards don’t match
+        setTimeout(() => { // Delay for 1 second before flipping cards back
+            gameBoard[firstIndex].flipped = false; // Unflip first card
+            gameBoard[secondIndex].flipped = false; // Unflip second card
             if (twoPlayerMode) currentPlayer = currentPlayer === 1 ? 2 : 1; // Switch players in two-player mode
-            renderBoard(); // Render the board
-        }, 1000); // Delay for 1 second
+            renderBoard(); // Update board
+        }, 1000);
     }
 
-    selectedCards = []; // Clear the selected cards array
-    document.getElementById('scoreboard').innerText = twoPlayerMode ? "Player 1: " + player1Score + " | Player 2: " + player2Score :
-    "Score: " + player1Score; // Update the scoreboard with the current scores
-    renderBoard(); // Render the board again
-    checkGameOver(); // Check if the game is over
+    selectedCards = []; // Clear selected cards
+    document.getElementById("scoreboard").innerText = twoPlayerMode 
+        ? player1Name + ": " + player1Score + " | " + player2Name + ": " + player2Score
+        : "Score: " + player1Score; // Update scoreboard
+    renderBoard(); // Refresh board
+    checkGameOver(); // Check if game is over
 }
 
-function checkGameOver() { // Function to check if the game is over
-    if (gameBoard.every(card => card.flipped)) { // Check if all cards are flipped
-        endGame(); // Call endGame if all cards are matched
+function checkGameOver() {
+    if (gameBoard.every(card => card.flipped)) { // If all cards are flipped
+        endGame(); // End game
     }
 }
 
-// Restart the game
-function restartGame() { // Function to restart the game
+function restartGame() {
     player1Score = 0; // Reset Player 1 score
     player2Score = 0; // Reset Player 2 score
-    currentPlayer = 1; // Reset to Player 1
-    selectedCards = []; // Clear the selected cards array
-    gameBoard = []; // Clear the game board
-    document.getElementById('result').innerText = ''; // Clear the result message
-    document.getElementById('restartButton').style.display = 'none'; // Hide the restart button
-    document.getElementById('scoreboard').style.display = 'block'; // Show the scoreboard
-    document.getElementById('timer').style.display = 'block'; // Show the timer
-    startTimer(180); // Start the timer with a duration of 180 seconds
-    setupGameBoard(); // Set up the game board
+    currentPlayer = 1; // Set current player to Player 1
+    selectedCards = []; // Clear selected cards
+    gameBoard = []; // Reset game board
+    document.getElementById("result").innerText = ""; // Clear result message
+    document.getElementById("restartButton").style.display = "none"; // Hide restart button
+    document.getElementById("scoreboard").style.display = "block"; // Show scoreboard
+    document.getElementById("timer").style.display = "block"; // Show timer
+    startTimer(180); // Start timer for 180 seconds
+    setupGameBoard(); // Set up new game board
 }
