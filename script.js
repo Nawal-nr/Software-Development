@@ -2,17 +2,17 @@
 let player1Score = 0;     // Player 1's score
 let player2Score = 0;     // Player 2's score
 let currentPlayer = 1;    // Tracks which player's turn it is (1 or 2)
-let twoPlayerMode = false;
-let cardValues = ["🐸", "🐶", "🐻", "🦊", "🐰", "🐱"]; // Array of card symbols for matching pairs
+let twoPlayerMode = false;    // Tracks if the game is in two-player mode
+let cardValues = ["🐸", "🐶", "🐻", "🦊", "🐰", "🐱"];   // Array of card symbols for matching pairs
 let selectedCards = [];   // Array to track selected cards for matching
 let gameBoard = [];       // Array to represent the game board with cards
 
-function selectMode(mode) {
-  twoPlayerMode = (mode === 2)
+function selectMode(mode) {     
+  twoPlayerMode = (mode === 2)    // Set twoPlayerMode based on the mode selected
 
-  document.querySelector('main section').style.display = 'none';
-  document.getElementById('playerNameSections').style.display = 'block';
-  document.getElementById('player2Name').style.display = twoPlayerMode ? 'block' : 'none'; 
+  document.querySelector('main section').style.display = 'none';    // Hide the mode selection section
+  document.getElementById('playerNameSections').style.display = 'block';    // Show name input section
+  document.getElementById('player2Name').style.display = twoPlayerMode ? 'block' : 'none';    // Show or hide Player 2 name input
 }
 
 
@@ -22,12 +22,12 @@ function startGame() {
   player2Score = 0; // Reset Player 2's score
   currentPlayer = 1; // Set starting player to Player 1
 
-document.getElementById('playerNameSections').style.display = 'none';
-document.getElementById('scoreboard').style.display = 'block';
+document.getElementById('playerNameSections').style.display = 'none';    // Hide name input section
+document.getElementById('scoreboard').style.display = 'block';    // Show the scoreboard
 if (twoPlayerMode){
-  document.getElementById('scoreboard').innerText = "Player 1: 0 | Player 2: 0"
+  document.getElementById('scoreboard').innerText = "Player 1: 0 | Player 2: 0"    // Display scores for both players 
 } else {
-  document.getElementById('scoreboard').innerText = "Score: 0"; 
+  document.getElementById('scoreboard').innerText = "Score: 0";    // Display score for single player
 }
 
   setupGameBoard(); // Call setup function to arrange the game board
@@ -75,16 +75,16 @@ function checkMatch() {
   const [firstIndex, secondIndex] = selectedCards; // Get indices of the two selected cards
   if (gameBoard[firstIndex].value === gameBoard[secondIndex].value) { // If the cards match
     if (twoPlayerMode){
-      currentPlayer === 1 ? player1Score++ : player2Score++
+      currentPlayer === 1 ? player1Score++ : player2Score++    // Increment the appropriate player's score
     } else {
-      player1Score++;
+      player1Score++;    // Increment single player's score 
     }
   } else {
     setTimeout(() => {
-      gameBoard[firstIndex].flipped = false;
-      gameBoard[secondIndex].flipped = false;
-      if (twoPlayerMode) currentPlayer = currentPlayer === 1 ? 2 : 1;
-      renderBoard();
+      gameBoard[firstIndex].flipped = false;   // Flip cards back if they don't match
+      gameBoard[secondIndex].flipped = false;    // Flip cards back if they don't match
+      if (twoPlayerMode) currentPlayer = currentPlayer === 1 ? 2 : 1;    // Switch current player in two-player mode
+      renderBoard();    // Update the board to reflect changes
     }, 1000);
   }
 
