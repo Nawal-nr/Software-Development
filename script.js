@@ -88,8 +88,6 @@ function checkMatch() {
     }, 1000);
   }
 
-
-
   selectedCards = []; // Reset selected cards for the next turn
   // Update the scoreboard display with current scores
   document.getElementById('scoreboard').innerText = twoPlayerMode ? "Player 1: " + player1Score + " | Player 2: " + player2Score :
