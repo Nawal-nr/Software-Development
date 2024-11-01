@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-     <div class="area">
+    <div class="area">
         <ul class="circles">
             <li></li>
             <li></li>
@@ -21,7 +20,7 @@
             <li></li>
         </ul>
     </div>
-    
+
     <main>
         <h1 id="gameTitle">🎉 Pairs! 🎉</h1>
         <section>
@@ -30,19 +29,20 @@
             <button onclick="selectMode(2)">Two Players</button>
         </section>
 
+        <section id="playerNameSections" style="display: none;"> 
+            <input type="text" id="player1Name" placeholder="Player 1 Name">
+            <input type="text" id="player2Name" placeholder="Player 2 Name" style="display: none;">
+            <button id="startGame" onclick="startGame()">Start Game</button>
+        </section>
 
-<section id="playerNameSections" style="display: none;"> 
-    <input type="text" id="player1Name" placeholder="Player 1 Name">
-    <input type="text" id="player2Name" placeholder="Player 2 Name" style="display:none;">
-    <button id="startGame" onclick="startGame()">Start Game</button>
-</section>
-
-
-<p id="scoreboard" style="display:none;">Player 1 : 0 | Player 2 : 0</p>
-<section id="result"></section>
-<div id="gameBoard"></div>
-<section></section>
+        <p id="scoreboard" style="display: none;">Player 1 : 0 | Player 2 : 0</p>
+        <span id="timer" style="display: none;">Time Left: 3:00</span>
+        <section id="result"></section>
+        <button id="restartButton" onclick="restartGame()" style="display: none;">Restart Game</button>
+        
+        <div id="gameBoard"></div>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>
