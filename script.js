@@ -71,8 +71,8 @@ function startTimer(duration) {
 
 function endGame() {
     // Determine winner based on scores or declare a tie
-    const winner = player1Score > player2Score ? player1Name + " wins!" 
-                : player1Score < player2Score ? player2Name + " wins!" 
+    const winner = player1Score > player2Score ? player1Name + " wins! 🥳" 
+                : player1Score < player2Score ? player2Name + " wins! 🥳" 
                 : "It's a tie!";
     
     document.getElementById("result").innerText = winner; // Display result on the page
