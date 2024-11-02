@@ -26,6 +26,17 @@ function selectMode(mode) {
     document.getElementById("player2Name").style.display = twoPlayerMode ? "block" : "none"; // Show Player 2 name input if in two-player mode
 }
 
+function allLetter(inputtxt) {
+    var letters = /^[A-Za-z]+$/;
+    if (inputtxt.match(letters)) {
+        return true;
+    } else { 
+        alert("Oops! Names can only have letters. Please try again!");
+        return false;
+    }
+}
+
+
 function startGame() {
     player1Score = 0; // Reset Player 1 score
     player2Score = 0; // Reset Player 2 score
@@ -34,6 +45,14 @@ function startGame() {
     // Capture player names from input fields or use default names if input is empty
     player1Name = document.getElementById("player1Name").value || "Player 1";
     player2Name = document.getElementById("player2Name").value || "Player 2";
+
+    if (!allLetter(player1Name)) {
+        return;
+    }
+
+    if (TwoPlayerMode && !allLetter(player2Name)) {
+        return;
+    }
 
     document.getElementById("playerNameSections").style.display = "none"; // Hide player name input section
     document.getElementById("scoreboard").style.display = "block"; // Show scoreboard
