@@ -38,9 +38,6 @@ function allLetter(inputtxt) {
 
 
 function startGame() {
-    player1Score = 0; // Reset Player 1 score
-    player2Score = 0; // Reset Player 2 score
-    currentPlayer = 1; // Set current player to Player 1
 
     // Capture player names from input fields or use default names if input is empty
     player1Name = document.getElementById("player1Name").value || "Player 1";
@@ -54,6 +51,10 @@ function startGame() {
         return;
     }
 
+    player1Score = 0; // Reset Player 1 score
+    player2Score = 0; // Reset Player 2 score
+    currentPlayer = 1; // Set current player to Player 1
+    
     document.getElementById("playerNameSections").style.display = "none"; // Hide player name input section
     document.getElementById("scoreboard").style.display = "block"; // Show scoreboard
     document.getElementById("timer").style.display = "block"; // Show timer
