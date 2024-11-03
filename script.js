@@ -10,16 +10,14 @@ let countdown; // Variable to hold the countdown timer
 let timeLeft = 35; // Initial time left for the game (set to 35 seconds)
 
 // Animal emoji and associated sound files for each card
-const cardValues = ['🐶', '🐱', '🐰', '🦊', '🐼', '🐨', '🐸', '🦁']; // Emojis to represent animals
+const cardValues = ['🦊', '🐶', '🐱', '🐻', '🐸', '🐰']; // Emojis to represent animals (fox, dog, cat, bear, frog, rabbit)
 const sounds = {
-    '🐶': new Audio('sounds/dog.mp3'),
-    '🐱': new Audio('sounds/cat.mp3'),
-    '🐰': new Audio('sounds/rabbit.mp3'),
-    '🦊': new Audio('sounds/fox.mp3'),
-    '🐼': new Audio('sounds/panda.mp3'),
-    '🐨': new Audio('sounds/koala.mp3'),
-    '🐸': new Audio('sounds/frog.mp3'),
-    '🦁': new Audio('sounds/lion.mp3')
+    '🦊': new Audio('fox.mp3.mp3'), // Sound for fox
+    '🐶': new Audio('Dog.mp3.mp3'), // Sound for dog
+    '🐱': new Audio('Cat.mp3.mp3'), // Sound for cat
+    '🐻': new Audio('Bear.mp3.mp3'), // Sound for bear
+    '🐸': new Audio('Frog.mp3.mp3'), // Sound for frog
+    '🐰': new Audio('Rabbit.mp3.mp3') // Sound for rabbit
 };
 
 // Function to select the game mode (1 player or 2 players)
