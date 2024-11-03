@@ -2,56 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Card Game</title>
-    <!-- The title of the web page, displayed on the browser tab -->
-
-    <link rel="stylesheet" href="styles.css">
-    <!-- Linking the external CSS file for styling -->
+    <title>Pairs Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
     <main>
+        <h1 id="gameTitle">🎉 Pairs! 🎉</h1>
         <section>
-            <h1>Memory Card Game</h1>
-            <!-- Main heading of the game, providing the title to users -->
-
-            <p>Select the number of players:</p>
-            <!-- Text prompting the user to choose between 1 or 2 players -->
-
-            <button onclick="selectMode(1)">1 Player</button>
-            <button onclick="selectMode(2)">2 Players</button>
-            <!-- Buttons that, when clicked, trigger the `selectMode` function with the chosen mode (1 or 2 players) -->
+            <p>Choose Game Mode: </p> 
+            <button onclick="selectMode(1)">Single Player</button>
+            <button onclick="selectMode(2)">Two Players</button>
         </section>
 
-        <section id="playerNameSections" style="display: none;">
-            <h2>Enter Player Names</h2>
-            <!-- Subheading for the player name entry section -->
-
+        <section id="playerNameSections" style="display: none;"> 
             <input type="text" id="player1Name" placeholder="Player 1 Name">
-            <!-- Input field for entering the name of Player 1 -->
-
             <input type="text" id="player2Name" placeholder="Player 2 Name" style="display: none;">
-            <!-- Input field for Player 2's name, hidden by default until two-player mode is selected -->
-
-            <button onclick="startGame()">Start Game</button>
-            <!-- Button to start the game, triggering the `startGame` function -->
+            <button id="startGame" onclick="startGame()">Start Game</button>
         </section>
 
-        <section id="gameBoard"></section>
-        <!-- A section where the game board will be dynamically populated with cards -->
-
-        <div id="scoreboard" style="display: none;"></div>
-        <!-- A hidden element that will display the scoreboard once the game starts -->
-
-        <div id="timer" style="display: none;"></div>
-        <!-- A hidden element for the countdown timer, revealed when the game begins -->
-
-        <button id="restartButton" style="display: none;" onclick="restartGame()">Restart Game</button>
-        <!-- A hidden restart button to reset the game, visible only when the game ends -->
+        <p id="scoreboard" style="display: none;">Player 1 : 0 | Player 2 : 0</p>
+        <span id="timer" style="display: none;">Time Left: 35 seconds </span>
+        <section id="result"></section>
+        <button id="restartButton" onclick="restartGame()" style="display: none;">Restart Game</button>
+        
+        <div id="gameBoard"></div>
     </main>
-    
-    <script src="script.js"></script>          
-    <!-- Linking the external JavaScript file for game functionality -->
+
+    <script src="script.js"></script>
 </body>
 </html>
+
