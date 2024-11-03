@@ -11,12 +11,12 @@ let timerInterval; // Variable to hold the timer interval ID
 
 // Load animal sounds associated with each card value
 const animalSounds = {
-    "🐸": new Audio("sounds/Frog.mp3"),
-    "🐶": new Audio("sounds/Dog.mp3"),
-    "🐻": new Audio("sounds/Bear.mp3"),
-    "🦊": new Audio("sounds/Fox.mp3"),
-    "🐰": new Audio("sounds/Rabbit.mp3"),
-    "🐱": new Audio("sounds/Cat.mp3")
+    "🐸": new Audio("sounds/Frog.mp3.mp3"),
+    "🐶": new Audio("sounds/Dog.mp3,mp3"),
+    "🐻": new Audio("sounds/Bear.mp3.mp3"),
+    "🦊": new Audio("sounds/Fox.mp3.mp3"),
+    "🐰": new Audio("sounds/Rabbit.mp3.mp3"),
+    "🐱": new Audio("sounds/Cat.mp3.mp3")
 };
 
 function selectMode(mode) {
