@@ -4,11 +4,20 @@ let currentPlayer = 1;
 let twoPlayerMode = false;
 let player1Name = "Player 1";
 let player2Name = "Player 2";
-let cardValues = ["🐸", "🐶", "🐻", "🦊", "🐰", "🐱"];
+let cardValues = ["🦊", "🐶", "🐱", "🐻", "🐸", "🐰"]; // Updated card values
 let selectedCards = [];
 let gameBoard = [];
 let countdown;
 let timeLeft = 35; // Timer set to 35 seconds
+
+const sounds = {
+    "🐸": new Audio("sounds/frog.mp3"),
+    "🐶": new Audio("sounds/dog.mp3"),
+    "🐻": new Audio("sounds/bear.mp3"),
+    "🦊": new Audio("sounds/fox.mp3"),
+    "🐰": new Audio("sounds/rabbit.mp3"),
+    "🐱": new Audio("sounds/cat.mp3")
+};
 
 function selectMode(mode) {
     twoPlayerMode = (mode === 2);
@@ -93,6 +102,7 @@ function checkMatch() {
     selectedCards = [];
     updateScoreboard();
     renderBoard();
+    checkGameOver(); // Check if the game should end after a match
 }
 
 function updateScoreboard() {
@@ -103,10 +113,32 @@ function updateScoreboard() {
     }
 }
 
+function checkGameOver() {
+    // Check if all cards are matched
+    const allMatched = gameBoard.every(card => card.flipped);
+    if (allMatched) {
+        endGame();
+    }
+}
+
 function endGame() {
-    document.getElementById("timer").textContent = "Time's up!";
+    clearInterval(countdown);
+    document.getElementById("timer").textContent = "Game Over!"; // Update the timer display
     document.getElementById("restartButton").style.display = "block";
-    // Add logic to display the winner in two-player mode or score in single-player mode
+    // Optional: You can display a message that indicates the winner or the final score
+    let winnerMessage;
+    if (twoPlayerMode) {
+        if (player1Score > player2Score) {
+            winnerMessage = `${player1Name} wins!`;
+        } else if (player2Score > player1Score) {
+            winnerMessage = `${player2Name} wins!`;
+        } else {
+            winnerMessage = "It's a tie!";
+        }
+    } else {
+        winnerMessage = `Your final score is ${player1Score}.`;
+    }
+    alert(winnerMessage); // Display winner or score
 }
 
 function restartGame() {
